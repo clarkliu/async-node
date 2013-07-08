@@ -1,0 +1,28 @@
+async-node is async library for the Java language licensed under Apache License 2.0. It was designed to use one uniform model to represent the
+ tasks and its relationship, and use library to schdule the async or sync call to make concurrency control simple, and also can provide some gurantee for application which can not use transaction to provide redo/undo operate to keep consistncy(such as nosql etc...). this library write log every step before each node runing so if there is any error, you can known which step is error by query from the log, and also can avoid duplicate call for scenario such as remoting call by same way.
+
+list of files:
+LICENSE.txt - the terms of license of this software
+pom.xml - maven parent pom
+readme.txt - this file
+sync-node - core component : support create and schdule async node
+
+
+async-node SUBCOMPONENTS:
+1.com.google.code.guice, download source url http://code.google.com/p/google-guice/
+2.org.apache.cassandra, home page http://cassandra.apache.org
+3.org.codehaus.jackson, home page http://jackson.codehaus.org
+4.org.slf4j, home page http://www.slf4j.org
+5.junit, home page http://junit.org
+
+environment setup:
+if you don't want to use cassandra to save the node running state, you can skip the below operate. however, your application may not in a availabe state if there is some exception such as server shutdown, as all data are in memory.
+1.apache-cassandra-1.1.12 or the compatible version
+2.create cassandra keyspace and column family you like. or you can just simply use the sample script below:
+	create keyspace AsyncNodeStore;
+	use AsyncNodeStore;
+	create column family AsyncNode;
+	create column family AsyncQueue;
+	create column family AsyncWorkFlow;
+3.init config before create async node. there is some example about init async node, create node and schdule node in asyncnode.TestAsyncElement at the test project.
+	
